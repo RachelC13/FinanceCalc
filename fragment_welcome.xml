@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".WelcomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="377dp"
+        android:layout_height="67dp"
+        android:text="Finance Calculator"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#612FB8"
+        android:textSize="34sp"
+        android:textStyle="italic" />
+
+
+    <EditText
+        android:id="@+id/editTextSalary"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter your salary"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editTextBudget"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter your budget"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Next" />
+
+</LinearLayout>
