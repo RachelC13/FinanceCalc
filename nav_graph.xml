@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.financecalc.WelcomeFragment"
+        android:label="Welcome Fragment"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_expenseFragment"
+            app:destination="@id/expenseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/expenseFragment"
+        android:name="com.example.financecalc.ExpenseFragment"
+        android:label="Expense Fragment"
+        tools:layout="@layout/fragment_expense" >
+        <argument
+            android:name="salary"
+            android:defaultValue="0.0"
+            app:argType="float"/>
+        <argument
+            android:name="budget"
+            android:defaultValue="0.0"
+            app:argType="float"/>
+        <action
+            android:id="@+id/action_expenseFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.financecalc.ResultFragment"
+        android:label="Result Fragment"
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="salary"
+            android:defaultValue="0.0"
+            app:argType="float"/>
+        <argument
+            android:name="budget"
+            android:defaultValue="0.0"
+            app:argType="float"/>
+        <argument
+            android:name="expenses"
+            android:defaultValue="0.0"
+            app:argType="float" />
+        <action
+            android:id="@+id/action_resultFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+</navigation>
