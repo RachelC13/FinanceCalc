@@ -5,42 +5,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@drawable/financecalc5"
     tools:context=".WelcomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:layout_width="377dp"
-        android:layout_height="67dp"
+        android:layout_height="wrap_content"
         android:text="Finance Calculator"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="#612FB8"
-        android:textSize="34sp"
+        android:textColor="@color/black"
+        android:textSize="40sp"
         android:textStyle="italic" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your salary"
+        android:textColor="#612FB8"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editTextSalary"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="Enter your salary"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="174dp"
+        android:layout_height="39dp"
+        android:text="Enter your budget"
+        android:textColor="#612FB8"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editTextBudget"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="Enter your budget"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/buttonNext"
         android:layout_width="wrap_content"
         android:layout_height="62dp"
         android:layout_gravity="center_horizontal"
-        android:text="Next" />
+        android:text="Next"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>
