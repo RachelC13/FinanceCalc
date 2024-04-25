@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@drawable/financecalc5"
     tools:context=".ExpenseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
-        android:layout_width="377dp"
-        android:layout_height="wrap_content"
+        android:layout_width="347dp"
+        android:layout_height="69dp"
         android:text="Expenses"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -21,26 +21,43 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="71dp"
-        android:layout_gravity="center_horizontal|left"
-        android:layout_marginBottom="35dp"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="Enter your expenses for the month"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editTextExpenses"
-        android:layout_width="380dp"
+        android:id="@+id/editTextExpenseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="Expense Name" />
+
+    <EditText
+        android:id="@+id/editTextExpenseAmount"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Enter your expenses"
+        android:hint="Expense Amount"
         android:inputType="numberDecimal" />
 
     <Button
+        android:id="@+id/buttonAddExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Expense" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewExpenses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
         android:id="@+id/buttonCalculate"
-        android:layout_width="118dp"
-        android:layout_height="63dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Calculate" />
 
 </LinearLayout>
