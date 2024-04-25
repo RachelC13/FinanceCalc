@@ -1,14 +1,12 @@
 package com.example.financecalc
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.financecalc.databinding.FragmentResultBinding
-import com.example.financecalc.ResultFragmentDirections
-import kotlin.math.abs
 
 
 class ResultFragment : Fragment() {
@@ -46,8 +44,11 @@ class ResultFragment : Fragment() {
         }
 
         // Show the result message in TextView
-       binding.textViewResult.text = resultMessage
+        binding.textViewResult.text = resultMessage
 
+        binding.buttonRestart.setOnClickListener {
+            findNavController().navigate(R.id.action_resultFragment_to_welcomeFragment)
+        }
 
     }
 
