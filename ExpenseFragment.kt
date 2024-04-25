@@ -1,49 +1,94 @@
 package com.example.financecalc
-
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financecalc.databinding.FragmentExpenseBinding
-import com.example.financecalc.ExpenseFragmentDirections
 
 class ExpenseFragment : Fragment() {
 
     private lateinit var binding: FragmentExpenseBinding
-    private var salary: Double = 0.0
-    private var budget: Double = 0.0
+    private lateinit var sharedPref: SharedPreferences
+    private val expenseList = mutableListOf<ExpenseItem>()
+    private var salary: Float = 0f
+    private var budget: Float = 0f
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_expense, container, false)
         binding = FragmentExpenseBinding.inflate(inflater, container, false)
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         return binding.root
     }
 
-    override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        salary = arguments?.getDouble("salary") ?: 0.0
-        budget = arguments?.getDouble("budget") ?: 0.0
+        salary = sharedPref.getFloat("salary",0f)
+        budget = sharedPref.getFloat("budget", 0f)
+        val expenseSet = sharedPref.getStringSet("expenses", setOf()) ?: setOf()
+        expenseSet.forEach {expense ->
+            val parts = expense.split(",")
+            if(parts.size==2) {
+                val expenseItem = ExpenseItem(parts[0], parts[1].toDouble())
+                expenseList.add(expenseItem)
+            }
+        }
 
-        //Set click listner to the calculate button
+
+
+        val adapter = ExpenseAdapter(expenseList)
+        binding.recyclerViewExpenses.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewExpenses.adapter = adapter
+
+        binding.buttonAddExpense.setOnClickListener {
+            addExpense()
+        }
+
         binding.buttonCalculate.setOnClickListener {
-            //get the expenses
-            val expenses =binding.editTextExpenses.text.toString().toDoubleOrNull()
+            calculateExpenses()
+        }
+    }
 
-            if(expenses != null) {
+    private fun addExpense() {
+        val expenseName = binding.editTextExpenseName.text.toString()
+        val expenseAmount = binding.editTextExpenseAmount.text.toString().toDoubleOrNull()
 
-                val action = ExpenseFragmentDirections.actionExpenseFragmentToResultFragment(salary.toFloat(),
-                    budget.toFloat(), expenses.toFloat()
-                )
-                findNavController().navigate(action)
-            }
-            else {
-                print("Please enter valid expenses")
-            }
+        if (expenseName.isNotEmpty() && expenseAmount != null) {
+            val expenseItem = ExpenseItem(expenseName, expenseAmount)
+            expenseList.add(expenseItem)
+            binding.recyclerViewExpenses.adapter?.notifyItemInserted(expenseList.size - 1)
+            binding.editTextExpenseName.text.clear()
+            binding.editTextExpenseAmount.text.clear()
+
+            saveExpenseList()
+        }
+    }
+
+    private fun calculateExpenses() {
+        val totalExpenses = expenseList.sumByDouble { it.amount.toDouble() }
+        val remainingBudget = budget - totalExpenses.toFloat()
+
+        with(sharedPref.edit()) {
+            putFloat("salary", salary)
+            putFloat("budget",budget)
+            putStringSet("expenses",expenseList.map {"${it.name}, ${it.amount}"}.toSet())
+            apply()
+        }
+        val action = ExpenseFragmentDirections
+            .actionExpenseFragmentToResultFragment(salary.toFloat(), budget.toFloat(), remainingBudget.toFloat())
+        findNavController().navigate(action)
+    }
+    private fun saveExpenseList() {
+        with(sharedPref.edit()) {
+            putStringSet("expenses", expenseList.map { "${it.name},${it.amount}"}.toSet())
+            apply()
         }
     }
 }
